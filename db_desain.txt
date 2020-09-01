@@ -1,0 +1,17 @@
+users
+-id
+-role_id
+-name
+-username
+-password
+
+roles
+-id
+-name
+
+commodity
+-id
+-name
+-price
+-status
+-date
