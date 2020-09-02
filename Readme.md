@@ -1,12 +1,18 @@
 # Coding Test
 
 Admin
+
 username: admin
+
 password: admin
 
+
 Surveyor
+
 username: surveyor
+
 password: surveyor
+
 
 ![commodities](https://github.com/caacuk/commodities/blob/master/screenshots/commodities.PNG?raw=true)
 
