@@ -54,7 +54,12 @@ class Commodities extends Component {
                     <Table.Row key={`${d.id}-${i}`}>
                       {/* <Table.Cell>{i + 1}</Table.Cell> */}
                       <Table.Cell>{d.name}</Table.Cell>
-                      <Table.Cell>Rp. {d.price}</Table.Cell>
+                      <Table.Cell>
+                        Rp.{" "}
+                        {d.price
+                          .toString()
+                          .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}
+                      </Table.Cell>
                       <Table.Cell>{d.date}</Table.Cell>
                     </Table.Row>
                   ))
