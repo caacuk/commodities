@@ -22,11 +22,15 @@ password: surveyor
 
 # Run
 
+### API
+
 > cd /commodities-api
 
 > npm install
 
 > npm start
+
+### Client
 
 > cd /commodities-app
 
