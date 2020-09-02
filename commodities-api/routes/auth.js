@@ -8,8 +8,6 @@ const User = require("../models/User");
 const { userValidation, loginValidation } = require("./validations");
 users.use(cors());
 
-process.env.SECRET_KEY = "secret";
-
 // Register
 users.post("/register", async (req, res) => {
   // Schema validation

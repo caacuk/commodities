@@ -3,7 +3,7 @@ const Joi = require("joi");
 const userValidation = (data) => {
   // Schema for validation
   const schema = Joi.object({
-    role_id: Joi.number().min(3).required(),
+    role_id: Joi.number().required(),
     name: Joi.string().min(3).required(),
     username: Joi.string().min(3).required(),
     password: Joi.string().min(3).required(),

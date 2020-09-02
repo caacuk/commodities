@@ -11,6 +11,7 @@ import {
 // API request function
 import { getCommodities } from "./CommodityFunctions";
 import { postCommodityUpdate } from "./CommodityFunctions";
+import { deleteCommodity } from "./CommodityFunctions";
 
 class AdminCommodities extends Component {
   state = {
@@ -19,6 +20,7 @@ class AdminCommodities extends Component {
     ],
     loading: true,
     loadingButton: false,
+    openModal: false,
   };
 
   // Call GET request commodities
@@ -38,20 +40,44 @@ class AdminCommodities extends Component {
     this.getCommodityData();
   }
 
-  // Button clicked
-  onSubmit = (e) => {
-    e.preventDefault();
+  // Button status clicked
+  handleChangeStatus = (d) => {
+    this.setState({ loadingButton: true });
 
-    if (this.state.name !== "") {
-      const newCommodity = {
-        id: this.props.id,
-        status: 1,
-      };
-
-      postCommodityUpdate(newCommodity).then((res) => {
-        this.setState({ loadingButton: false });
-      });
+    let statusUpdate = d.status;
+    if (statusUpdate === 1) {
+      statusUpdate = 0;
+    } else {
+      statusUpdate = 1;
     }
+
+    // Commodity update data
+    const updateCommodity = {
+      id: d.id,
+      status: statusUpdate,
+    };
+
+    // Call POST request for update status commodity
+    postCommodityUpdate(updateCommodity).then((res) => {
+      this.getCommodityData();
+      this.setState({ loadingButton: false });
+    });
+  };
+
+  // Button delete clicked
+  handleDeleteComodity = (d) => {
+    this.setState({ loadingButton: true });
+
+    // Commodity data
+    const deleteCommodityData = {
+      id: d.id,
+    };
+
+    // Call POST request for delete commodity
+    deleteCommodity(deleteCommodityData).then((res) => {
+      this.getCommodityData();
+      this.setState({ loadingButton: false });
+    });
   };
 
   render() {
@@ -81,7 +107,10 @@ class AdminCommodities extends Component {
               {this.state.commodities
                 ? this.state.commodities.map((d, i) => (
                     <Table.Row key={`${d.id}-${i}`}>
+                      {/* Name */}
                       <Table.Cell>{d.name}</Table.Cell>
+
+                      {/* Price */}
                       <Table.Cell>
                         Rp.{" "}
                         {d.price
@@ -89,34 +118,25 @@ class AdminCommodities extends Component {
                           .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}
                       </Table.Cell>
                       <Table.Cell>{d.date}</Table.Cell>
+
+                      {/* Status */}
                       <Table.Cell>
                         <Button
                           icon="checkmark"
                           positive={d.status === 1}
                           loading={this.state.loadingButton}
                           key={d.id}
-                          onClick={() => {
-                            this.setState({ loadingButton: true });
+                          onClick={() => this.handleChangeStatus(d)}
+                        ></Button>
+                      </Table.Cell>
 
-                            let statusUpdate = d.status;
-                            if (statusUpdate === 1) {
-                              statusUpdate = 0;
-                            } else {
-                              statusUpdate = 1;
-                            }
-
-                            // Commodity update data
-                            const updateCommodity = {
-                              id: d.id,
-                              status: statusUpdate,
-                            };
-
-                            // Call POST request for update status commodity
-                            postCommodityUpdate(updateCommodity).then((res) => {
-                              this.getCommodityData();
-                              this.setState({ loadingButton: false });
-                            });
-                          }}
+                      {/* Delete Button */}
+                      <Table.Cell>
+                        <Button
+                          icon="close"
+                          negative
+                          key={d.id}
+                          onClick={() => this.handleDeleteComodity(d)}
                         ></Button>
                       </Table.Cell>
                     </Table.Row>

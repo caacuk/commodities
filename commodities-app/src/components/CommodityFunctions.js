@@ -77,3 +77,24 @@ export const postCommodityUpdate = (commodity) => {
       console.log(err);
     });
 };
+
+export const deleteCommodity = (commodity) => {
+  const commodityId = commodity.id;
+  return axios
+    .post(
+      "commodities/delete/" + commodityId,
+      {},
+      {
+        headers: {
+          Authorization: localStorage.usertoken,
+        },
+      }
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+      return "error";
+    });
+};

@@ -70,7 +70,7 @@ commodities.get("/status/:status", async (req, res) => {
 });
 
 // DELETE BY ID
-commodities.post("/delete/:id", async (req, res) => {
+commodities.post("/delete/:id", verifyToken, async (req, res) => {
   const auth = 1;
 
   try {
