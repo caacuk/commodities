@@ -15,15 +15,15 @@ password: surveyor
 
 
 
-Customers Page
+### Customers Page
 ![commodities](https://github.com/caacuk/commodities/blob/master/screenshots/commodities.PNG?raw=true)
 
 
-Admin Page
+### Admin Page
 ![admin](https://github.com/caacuk/commodities/blob/master/screenshots/admin.PNG?raw=true)
 
 
-Surveyor Page
+### Surveyor Page
 ![surveyor](https://github.com/caacuk/commodities/blob/master/screenshots/surveyor.PNG?raw=true)
 
 
