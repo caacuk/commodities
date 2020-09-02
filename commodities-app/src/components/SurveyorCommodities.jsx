@@ -46,7 +46,6 @@ class SurveyorCommodities extends Component {
       // Call POST request for insert commodity
       postCommodity(newCommodity)
         .then((res) => {
-          console.log(res);
           if (res === "error") {
             this.setState({ messageError: true });
           }

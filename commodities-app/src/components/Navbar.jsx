@@ -11,7 +11,6 @@ class Navbar extends Component {
   logout = () => {
     localStorage.removeItem("usertoken");
     localStorage.removeItem("role_id");
-    // localStorage.setItem("activeItem", "home");
     this.props.history.push(`/login`);
   };
 
