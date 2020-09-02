@@ -9,7 +9,7 @@ roles
 -id
 -name
 
-commodity
+commodities
 -id
 -name
 -price
