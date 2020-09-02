@@ -24,8 +24,12 @@ password: surveyor
 
 > cd /commodities-api
 
+> npm install
+
 > npm start
 
 > cd /commodities-app
+
+> npm install
 
 > npm start
