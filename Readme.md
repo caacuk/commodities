@@ -8,11 +8,11 @@ Surveyor
 username: surveyor
 password: surveyor
 
-![commodities](https://github.com/caacuk/chatbot-app/blob/master/screenshots/commodities.PNG?raw=true)
+![commodities](https://github.com/caacuk/commodities/blob/master/screenshots/commodities.PNG?raw=true)
 
-![admin](https://github.com/caacuk/chatbot-app/blob/master/screenshots/admin.PNG?raw=true)
+![admin](https://github.com/caacuk/commodities/blob/master/screenshots/admin.PNG?raw=true)
 
-![surveyor](https://github.com/caacuk/chatbot-app/blob/master/screenshots/surveyor.PNG?raw=true)
+![surveyor](https://github.com/caacuk/commodities/blob/master/screenshots/surveyor.PNG?raw=true)
 
 # Run
 
