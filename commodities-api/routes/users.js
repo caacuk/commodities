@@ -16,24 +16,6 @@ const verifyToken = require("./verifyToken");
 
 users.use(cors());
 
-users.get("/profile", verifyToken, (req, res) => {
-  User.findOne({
-    where: {
-      id: req.user.id,
-    },
-  })
-    .then((user) => {
-      if (user) {
-        res.send(user);
-      } else {
-        res.send("User does not exist");
-      }
-    })
-    .catch((err) => {
-      res.send("error: " + err);
-    });
-});
-
 // GET ALL
 users.get("/", async (req, res) => {
   const auth = 1;

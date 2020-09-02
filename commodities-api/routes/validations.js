@@ -3,9 +3,19 @@ const Joi = require("joi");
 const userValidation = (data) => {
   // Schema for validation
   const schema = Joi.object({
-    first_name: Joi.string().min(3).required(),
-    last_name: Joi.string().min(3).required(),
-    email: Joi.string().min(3).email().required(),
+    role_id: Joi.number().min(3).required(),
+    name: Joi.string().min(3).required(),
+    username: Joi.string().min(3).required(),
+    password: Joi.string().min(3).required(),
+  });
+
+  return schema.validate(data);
+};
+
+const loginValidation = (data) => {
+  // Schema for validation
+  const schema = Joi.object({
+    username: Joi.string().min(3).required(),
     password: Joi.string().min(3).required(),
   });
 
@@ -26,3 +36,4 @@ const surveyorValidation = (data) => {
 
 module.exports.userValidation = userValidation;
 module.exports.surveyorValidation = surveyorValidation;
+module.exports.loginValidation = loginValidation;

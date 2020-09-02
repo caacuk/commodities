@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const User = require("../models/User");
-// const { userValidation, loginValidation } = require("../validation");
+const { userValidation, loginValidation } = require("./validations");
 users.use(cors());
 
 process.env.SECRET_KEY = "secret";
@@ -13,8 +13,8 @@ process.env.SECRET_KEY = "secret";
 // Register
 users.post("/register", async (req, res) => {
   // Schema validation
-  //   const { error } = userValidation(req.body);
-  //   if (error) return res.status(400).send(error.details[0].message);
+  const { error } = userValidation(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
   // Check if username exist
   const usernameExist = await User.findOne({
@@ -46,8 +46,8 @@ users.post("/register", async (req, res) => {
 // Login
 users.post("/login", async (req, res) => {
   // Schema validation
-  //   const { error } = loginValidation(req.body);
-  //   if (error) return res.status(400).send(error.details[0].message);
+  const { error } = loginValidation(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
   // Check if username exist then get user data
   const user = await User.findOne({

@@ -17,10 +17,10 @@ commodities.use(cors());
 // GET ALL
 commodities.get("/", verifyToken, async (req, res) => {
   try {
-    const user = await Commodity.findAll({
+    const commodity = await Commodity.findAll({
       order: [["id", "DESC"]],
     });
-    res.status(200).send(user);
+    res.status(200).send(commodity);
   } catch (err) {
     res.send("error: " + err);
   }
@@ -31,16 +31,16 @@ commodities.get("/", async (req, res) => {
   const auth = 1;
 
   try {
-    const user = await Commodity.findOne({
+    const commodity = await Commodity.findOne({
       where: {
         id: req.body.id,
       },
     });
 
-    if (user) {
-      res.status(200).send(user);
+    if (commodity) {
+      res.status(200).send(commodity);
     } else {
-      res.status(400).send("User doesnt exists");
+      res.status(400).send("commodity doesnt exists");
     }
   } catch (err) {
     res.status(400).send(err);
@@ -52,17 +52,17 @@ commodities.get("/status/:status", async (req, res) => {
   const auth = 1;
 
   try {
-    const user = await Commodity.findAll({
+    const commodity = await Commodity.findAll({
       where: {
         status: req.params.status,
       },
       order: [["id", "DESC"]],
     });
 
-    if (user) {
-      res.status(200).send(user);
+    if (commodity) {
+      res.status(200).send(commodity);
     } else {
-      res.status(400).send("User doesnt exists");
+      res.status(400).send("commodity doesnt exists");
     }
   } catch (err) {
     res.status(400).send(err);
@@ -74,37 +74,37 @@ commodities.get("/delete/:id", async (req, res) => {
   const auth = 1;
 
   try {
-    const user = await Commodity.destroy({
+    const commodity = await Commodity.destroy({
       where: {
         id: req.params.id,
       },
     });
 
-    if (user) {
-      res.status(200).send("User deleted");
+    if (commodity) {
+      res.status(200).send("commodity deleted");
     } else {
-      res.status(400).send("User doesnt exists");
+      res.status(400).send("commodity doesnt exists");
     }
   } catch (err) {
     res.status(400).send(err);
   }
 });
 
-// INSERT USER
+// INSERT commodity
 commodities.post("/insert", verifyToken, async (req, res) => {
   // Schema validation
   const { error } = surveyorValidation(req.body);
   if (error) return res.status(400).send({ error: error.details[0].message });
 
-  const user = await Commodity.findOne({
+  const commodity = await Commodity.findOne({
     where: {
       name: req.body.name,
     },
   });
 
-  if (user) return res.status(400).send("User exist");
+  if (commodity) return res.status(400).send("commodity exist");
 
-  const userData = {
+  const commodityData = {
     name: req.body.name,
     price: req.body.price,
     status: req.body.status,
@@ -112,24 +112,24 @@ commodities.post("/insert", verifyToken, async (req, res) => {
   };
 
   try {
-    const savedUser = await Commodity.create(userData);
-    res.status(200).send(savedUser);
+    const savedcommodity = await Commodity.create(commodityData);
+    res.status(200).send(savedcommodity);
   } catch (err) {
     res.status(400).send(err);
   }
 });
 
-// UPDATE USER
+// UPDATE commodity
 commodities.post("/update", async (req, res) => {
-  const user = await Commodity.findOne({
+  const commodity = await Commodity.findOne({
     where: {
       id: req.body.id,
     },
   });
 
-  if (!user) return res.status(400).send("User doesnt exist");
+  if (!commodity) return res.status(400).send("commodity doesnt exist");
 
-  const userData = {
+  const commodityData = {
     name: req.body.name,
     price: req.body.price,
     status: req.body.status,
@@ -137,12 +137,12 @@ commodities.post("/update", async (req, res) => {
   };
 
   try {
-    const savedUser = await Commodity.update(userData, {
+    const savedcommodity = await Commodity.update(commodityData, {
       where: {
         id: req.body.id,
       },
     });
-    res.status(200).send(savedUser);
+    res.status(200).send(savedcommodity);
   } catch (err) {
     res.status(400).send(err);
   }
