@@ -42,9 +42,11 @@ class Login extends Component {
 
             // Redirect to admin or surveyor page
             if (localStorage.role_id === "1") {
+              localStorage.setItem("activeItem", "admin");
               this.props.history.push(`/admin`);
               window.location.reload(false);
             } else {
+              localStorage.setItem("activeItem", "surveyor");
               this.props.history.push(`/surveyor`);
               window.location.reload(false);
             }
@@ -58,6 +60,10 @@ class Login extends Component {
         });
     }
   };
+
+  componentDidMount() {
+    localStorage.setItem("activeItem", "login");
+  }
 
   render() {
     return (

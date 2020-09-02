@@ -17,7 +17,8 @@ function App() {
           <Grid.Row stretched>
             <Grid.Column width="2" />
             <Grid.Column width="12">
-              <Navbar />
+              {/* <Navbar /> */}
+              <Route exact path="/*" component={Navbar} />
               <Route exact path="/" component={Commodities} />
               <Route exact path="/home" component={Commodities} />
               <Route exact path="/admin" component={AdminCommodities} />

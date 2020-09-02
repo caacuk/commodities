@@ -54,13 +54,21 @@ export const postCommodity = (commodity) => {
 
 export const postCommodityUpdate = (commodity) => {
   return axios
-    .post("commodities/update", {
-      id: commodity.id,
-      name: commodity.name,
-      price: commodity.price,
-      status: commodity.status,
-      date: commodity.date,
-    })
+    .post(
+      "commodities/update",
+      {
+        id: commodity.id,
+        name: commodity.name,
+        price: commodity.price,
+        status: commodity.status,
+        date: commodity.date,
+      },
+      {
+        headers: {
+          Authorization: localStorage.usertoken,
+        },
+      }
+    )
     .then((response) => {
       // console.log(response);
       return response.data;

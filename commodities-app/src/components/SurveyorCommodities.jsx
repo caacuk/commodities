@@ -69,6 +69,8 @@ class SurveyorCommodities extends Component {
     if (localStorage.role_id !== "2") {
       this.props.history.push(`/`);
     }
+
+    localStorage.setItem("activeItem", "surveyor");
   }
 
   render() {

@@ -120,7 +120,7 @@ commodities.post("/insert", verifyToken, async (req, res) => {
 });
 
 // UPDATE commodity
-commodities.post("/update", async (req, res) => {
+commodities.post("/update", verifyToken, async (req, res) => {
   const commodity = await Commodity.findOne({
     where: {
       id: req.body.id,

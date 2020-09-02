@@ -21,6 +21,7 @@ class Commodities extends Component {
   }
 
   componentDidMount() {
+    localStorage.setItem("activeItem", "home");
     this.getCommodityData();
   }
 

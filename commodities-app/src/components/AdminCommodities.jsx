@@ -34,6 +34,7 @@ class AdminCommodities extends Component {
       return this.props.history.push(`/`);
     }
 
+    localStorage.setItem("activeItem", "admin");
     this.getCommodityData();
   }
 
@@ -48,7 +49,6 @@ class AdminCommodities extends Component {
       };
 
       postCommodityUpdate(newCommodity).then((res) => {
-        console.log(res.status);
         this.setState({ loadingButton: false });
       });
     }
@@ -109,7 +109,6 @@ class AdminCommodities extends Component {
                             // Call POST request for update status commodity
                             postCommodityUpdate(updateCommodity).then((res) => {
                               this.getCommodityData();
-                              console.log("succes");
                               this.setState({ loadingButton: false });
                             });
                           }}
