@@ -8,6 +8,7 @@ import Commodities from "./components/Commodities";
 import AdminCommodities from "./components/AdminCommodities";
 import SurveyorCommodities from "./components/SurveyorCommodities";
 import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route exact path="/admin" component={AdminCommodities} />
               <Route exact path="/surveyor" component={SurveyorCommodities} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={Register} />
             </Grid.Column>
             <Grid.Column width="2" />
           </Grid.Row>

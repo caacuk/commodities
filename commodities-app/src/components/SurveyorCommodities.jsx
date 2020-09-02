@@ -54,6 +54,10 @@ class SurveyorCommodities extends Component {
           this.setState({ message: false });
           this.setState({ loading: false });
 
+          this.setState({ name: "" });
+          this.setState({ price: "" });
+          this.setState({ date: "" });
+
           // Redirect
           this.props.history.push(`/surveyor`);
         })
