@@ -57,7 +57,7 @@ class Register extends Component {
   };
 
   componentDidMount() {
-    localStorage.setItem("activeItem", "login");
+    localStorage.setItem("activeItem", "register");
   }
 
   render() {
