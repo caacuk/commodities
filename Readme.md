@@ -38,7 +38,19 @@ password: surveyor
 
 #### API deployed at https://caacuk-survey-api.herokuapp.com/
 
+#### or localhost:5000
+
+> cd /commodities-api
+
+> npm install
+
+> npm start
+
 ### Client
+
+#### Client deployed https://caacuk.github.io/commodities-app-production/#/home
+
+#### or localhost:3000
 
 > cd /commodities-app
 
