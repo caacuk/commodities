@@ -1,5 +1,7 @@
 # Coding Test
 
+Client deployed https://caacuk.github.io/commodities-app-production/#/home
+
 #### Admin
 
 username: admin
