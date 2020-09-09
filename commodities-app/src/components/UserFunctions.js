@@ -1,5 +1,7 @@
 import axios from "axios";
 
+axios.defaults.baseURL = "https://caacuk-survey-api.herokuapp.com/";
+
 export const register = (newUser) => {
   return axios
     .post("users/register", {

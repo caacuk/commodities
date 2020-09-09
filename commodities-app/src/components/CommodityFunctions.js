@@ -1,5 +1,7 @@
 import axios from "axios";
 
+axios.defaults.baseURL = "https://caacuk-survey-api.herokuapp.com/";
+
 export const getCommoditiesByStatus = () => {
   return axios
     .get("commodities/status/1")

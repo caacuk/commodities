@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 class Navbar extends Component {
   state = {};
@@ -18,48 +19,50 @@ class Navbar extends Component {
     return (
       <Menu pointing secondary size="massive">
         {localStorage.role_id === "1" ? (
-          <Menu.Item
-            link
-            name="admin"
-            active={localStorage.activeItem === "admin"}
-            onClick={this.handleItemClick}
-            href="/admin"
-          />
+          <Link to="/admin">
+            <Menu.Item
+              as="h3"
+              name="admin"
+              active={localStorage.activeItem === "admin"}
+              onClick={this.handleItemClick}
+            />
+          </Link>
         ) : localStorage.role_id === "2" ? (
-          <Menu.Item
-            link
-            name="surveyor"
-            active={localStorage.activeItem === "surveyor"}
-            onClick={this.handleItemClick}
-            href="/surveyor"
-          />
+          <Link to="/surveyor">
+            <Menu.Item
+              as="h3"
+              name="surveyor"
+              active={localStorage.activeItem === "surveyor"}
+              onClick={this.handleItemClick}
+            />
+          </Link>
         ) : (
-          <Menu.Item
-            link
-            name="home"
-            active={localStorage.activeItem === "home"}
-            onClick={this.handleItemClick}
-            href="/home"
-          />
+          <Link to="/home">
+            <Menu.Item
+              as="h3"
+              name="home"
+              active={localStorage.activeItem === "home"}
+              onClick={this.handleItemClick}
+            />
+          </Link>
         )}
 
         <Menu.Menu position="right">
           {localStorage.usertoken ? (
             <Menu.Item
-              link
               name="logout"
               active={localStorage.activeItem === "logout"}
               onClick={this.logout}
-              href="/logout"
             />
           ) : (
-            <Menu.Item
-              link
-              name="login"
-              active={localStorage.activeItem === "login"}
-              onClick={this.handleItemClick}
-              href="/login"
-            />
+            <Link to="/login">
+              <Menu.Item
+                as="h3"
+                name="login"
+                active={localStorage.activeItem === "login"}
+                onClick={this.handleItemClick}
+              />
+            </Link>
           )}
         </Menu.Menu>
       </Menu>
