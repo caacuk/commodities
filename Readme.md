@@ -1,4 +1,4 @@
-# Coding Test
+# Commodities
 
 Client deployed https://caacuk.github.io/commodities-app-production/#/home
 
