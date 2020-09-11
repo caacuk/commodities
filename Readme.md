@@ -16,7 +16,7 @@ password: surveyor
 
 #
 
-### Customers Page
+### Home Page
 
 ![commodities](https://github.com/caacuk/commodities/blob/master/screenshots/commodities.PNG?raw=true)
 
