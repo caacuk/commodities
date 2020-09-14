@@ -16,7 +16,7 @@ password: surveyor
 
 #
 
-### Customers Page
+### Home Page
 
 ![commodities](https://github.com/caacuk/commodities/blob/master/screenshots/commodities.PNG?raw=true)
 
@@ -31,6 +31,13 @@ password: surveyor
 ### Surveyor Page
 
 ![surveyor](https://github.com/caacuk/commodities/blob/master/screenshots/surveyor.PNG?raw=true)
+
+Commodity Name: Min 3 character
+
+Price: Min 1000,
+
+Date: date,
+
 
 # Run
 
