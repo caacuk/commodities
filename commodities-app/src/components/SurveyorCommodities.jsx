@@ -21,6 +21,7 @@ class SurveyorCommodities extends Component {
     loading: false,
     message: true,
     messageType: false,
+    errorMessage: "",
   };
 
   // Set state when input change
@@ -32,9 +33,9 @@ class SurveyorCommodities extends Component {
   onSubmit = (e) => {
     if (this.state.name !== "") {
       // Set loading and message
-      this.setState({ message: true });
+      this.setState({ messageHidden: true });
       this.setState({ loading: true });
-      this.setState({ messageError: false });
+      this.setState({ errorMessage: "" });
 
       // New commodity data
       const newCommodity = {
@@ -46,23 +47,31 @@ class SurveyorCommodities extends Component {
       // Call POST request for insert commodity
       postCommodity(newCommodity)
         .then((res) => {
-          if (res === "error") {
-            this.setState({ messageError: true });
+          if (!res.errorMessage) {
+            // Set loading and message
+            this.setState({ messageHidden: false });
+            this.setState({ loading: false });
+
+            this.setState({ name: "" });
+            this.setState({ price: "" });
+            this.setState({ date: "" });
+
+            // Redirect
+            this.props.history.push(`/surveyor`);
+          } else {
+            this.setState({ loading: false });
+            this.setState({
+              errorMessage: res.errorMessage,
+            });
+            this.setState({ messageHidden: false });
           }
-
-          // Set loading and message
-          this.setState({ message: false });
-          this.setState({ loading: false });
-
-          this.setState({ name: "" });
-          this.setState({ price: "" });
-          this.setState({ date: "" });
-
-          // Redirect
-          this.props.history.push(`/surveyor`);
         })
         .catch((err) => {
-          console.log(err);
+          this.setState({ loading: false });
+          this.setState({
+            errorMessage: "Unexpected error",
+          });
+          this.setState({ messageHidden: false });
         });
     }
   };
@@ -81,15 +90,15 @@ class SurveyorCommodities extends Component {
       <Segment>
         {/* Error message or success message */}
         <Message
-          success={this.state.messageError ? false : true}
-          negative={this.state.messageError ? true : false}
-          header={this.state.messageError ? "Error" : "Success"}
+          success={this.state.errorMessage ? false : true}
+          negative={this.state.errorMessage ? true : false}
+          header={this.state.errorMessage ? "Error" : "Success"}
           content={
-            this.state.messageError
-              ? "Failed submit"
+            this.state.errorMessage
+              ? this.state.errorMessage
               : "Your data has been submited"
           }
-          hidden={this.state.message}
+          hidden={this.state.messageHidden}
         />
         <Segment basic>
           <Header size="large">Surveyor</Header>
