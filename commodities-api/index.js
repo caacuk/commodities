@@ -28,9 +28,10 @@ app.use("/roles", Roles);
 app.use("/commodities", Commodities);
 app.use("/users", Auth);
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// Swagger UI Docs
+const swaggerUI = require("swagger-ui-express");
+const apidocs = require("./docs/docs.json");
+app.use("/", swaggerUI.serve, swaggerUI.setup(apidocs));
 
 if (process.env.NODE_ENV === "production") {
   // console.log("production");
@@ -42,12 +43,14 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.resolve(__dirname, "routes")));
   app.use(express.static(path.resolve(__dirname, "models")));
   app.use(express.static(path.resolve(__dirname, "database")));
+  app.use(express.static(path.resolve(__dirname, "docs")));
 
   //set static folder for deploy on Heroku
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "routes"));
     res.sendFile(path.resolve(__dirname, "models"));
     res.sendFile(path.resolve(__dirname, "database"));
+    res.sendFile(path.resolve(__dirname, "docs"));
   });
 }
 
