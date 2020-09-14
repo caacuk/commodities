@@ -9,9 +9,9 @@ import {
 } from "semantic-ui-react";
 
 // API request function
-import { getCommodities } from "./CommodityFunctions";
-import { postCommodityUpdate } from "./CommodityFunctions";
-import { deleteCommodity } from "./CommodityFunctions";
+import { getCommodities } from "../functions/CommodityFunctions";
+import { putCommodity } from "../functions/CommodityFunctions";
+import { deleteCommodity } from "../functions/CommodityFunctions";
 
 class AdminCommodities extends Component {
   state = {
@@ -26,7 +26,7 @@ class AdminCommodities extends Component {
   // Call GET request commodities
   getCommodityData() {
     getCommodities().then((res) => {
-      this.setState({ commodities: res });
+      this.setState({ commodities: res.data });
       this.setState({ loading: false });
     });
   }
@@ -58,7 +58,7 @@ class AdminCommodities extends Component {
     };
 
     // Call POST request for update status commodity
-    postCommodityUpdate(updateCommodity).then((res) => {
+    putCommodity(updateCommodity).then((res) => {
       this.getCommodityData();
       this.setState({ loadingButton: false });
     });

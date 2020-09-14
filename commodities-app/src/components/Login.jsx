@@ -12,10 +12,17 @@ import {
 import jwt_decode from "jwt-decode";
 
 // POST request function
-import { login } from "./UserFunctions";
+import { login } from "../functions/UserFunctions";
 
 class Login extends Component {
-  state = { username: "", password: "", loading: false, message: true };
+  state = {
+    username: "",
+    password: "",
+    loading: false,
+    messageHidden: true,
+    message: "",
+    messageError: "",
+  };
 
   // Set state when input change
   onChange = (e) => {
@@ -25,7 +32,7 @@ class Login extends Component {
   // Button submit
   onSubmit = (e) => {
     this.setState({ loading: true });
-    this.setState({ message: true });
+    this.setState({ messageHidden: true });
     // Check input
     if (this.state.name !== "") {
       const user = {
@@ -36,7 +43,7 @@ class Login extends Component {
       // Call POST request for login
       login(user)
         .then((res) => {
-          if (res !== "error") {
+          if (!res.errorMessage) {
             const decoded = jwt_decode(localStorage.usertoken);
             localStorage.setItem("role_id", decoded.role_id);
 
@@ -50,11 +57,16 @@ class Login extends Component {
             }
           } else {
             this.setState({ loading: false });
-            this.setState({ message: false });
+            this.setState({
+              messageError: res.errorMessage,
+            });
+            this.setState({ messageHidden: false });
           }
         })
         .catch((err) => {
-          console.log(err);
+          this.setState({ loading: false });
+          this.setState({ messageError: "Unexpected error" });
+          this.setState({ messageHidden: false });
         });
     }
   };
@@ -75,8 +87,8 @@ class Login extends Component {
           <Message
             negative
             header="Error"
-            content="Invalid password or username"
-            hidden={this.state.message}
+            content={this.state.messageError}
+            hidden={this.state.messageHidden}
           />
 
           {/* Loading */}

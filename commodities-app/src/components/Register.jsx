@@ -11,7 +11,7 @@ import {
 } from "semantic-ui-react";
 
 // POST request function
-import { register } from "./UserFunctions";
+import { register } from "../functions/UserFunctions";
 
 class Register extends Component {
   state = {

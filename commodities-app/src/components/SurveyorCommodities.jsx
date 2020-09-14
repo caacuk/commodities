@@ -11,7 +11,7 @@ import {
 } from "semantic-ui-react";
 
 // POST request function
-import { postCommodity } from "./CommodityFunctions";
+import { postCommodity } from "../functions/CommodityFunctions";
 
 class SurveyorCommodities extends Component {
   state = {

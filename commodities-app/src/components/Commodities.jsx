@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Segment, Table, Header, Dimmer, Loader } from "semantic-ui-react";
 
 // GET request function
-import { getCommoditiesByStatus } from "./CommodityFunctions";
+import { getCommoditiesByStatus } from "../functions/CommodityFunctions";
 
 class Commodities extends Component {
   state = {
@@ -15,7 +15,7 @@ class Commodities extends Component {
   // Get commodities
   getCommodityData() {
     getCommoditiesByStatus().then((res) => {
-      this.setState({ commodities: res });
+      this.setState({ commodities: res.data });
       this.setState({ loading: false });
     });
   }

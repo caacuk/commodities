@@ -14,30 +14,33 @@ User.belongsTo(Role, { foreignKey: "role_id" });
 // Middleware
 const verifyToken = require("./verifyToken");
 
+// Helper
+const sendResponse = require("./sendResponse");
+
 users.use(cors());
 
 // GET ALL
-users.get("/", async (req, res) => {
-  const auth = 1;
+users.get("/", verifyToken, async (req, res) => {
   try {
     const user = await User.findAll({
       include: [
         {
           model: Role,
-          attributes: ["name"],
+          attributes: ["id", "name"],
         },
       ],
+      attributes: ["id", "name", "username"],
     });
-    res.status(200).send(user);
+    res
+      .status(200)
+      .json(sendResponse(200, "View all users success", null, user));
   } catch (err) {
-    res.send("error: " + err);
+    res.json(sendResponse(400, "Unexpected error", "Unexpected error", null));
   }
 });
 
 // GET BY ID
-users.get("/:id", async (req, res) => {
-  const auth = 1;
-
+users.get("/:id", verifyToken, async (req, res) => {
   try {
     const user = await User.findOne({
       where: {
@@ -46,25 +49,37 @@ users.get("/:id", async (req, res) => {
       include: [
         {
           model: Role,
-          attributes: ["name"],
+          attributes: ["id", "name"],
         },
       ],
+      attributes: ["id", "name", "username"],
     });
 
     if (user) {
-      res.status(200).send(user);
+      res
+        .status(200)
+        .json(sendResponse(200, "View users by id success", null, user));
     } else {
-      res.status(400).send("User doesnt exists");
+      res
+        .status(400)
+        .json(
+          sendResponse(
+            400,
+            "View users by id failed",
+            "User doesnt exist",
+            null
+          )
+        );
     }
   } catch (err) {
-    res.status(400).send(err);
+    res
+      .status(400)
+      .json(sendResponse(400, "Unexpected error", "Unexpected error", null));
   }
 });
 
 // DELETE BY ID
-users.get("/delete/:id", async (req, res) => {
-  const auth = 1;
-
+users.delete("/:id", verifyToken, async (req, res) => {
   try {
     const user = await User.destroy({
       where: {
@@ -73,40 +88,20 @@ users.get("/delete/:id", async (req, res) => {
     });
 
     if (user) {
-      res.status(200).send("User deleted");
+      res
+        .status(200)
+        .json(sendResponse(200, "Delete user success", null, null));
     } else {
-      res.status(400).send("User doesnt exists");
+      res
+        .status(400)
+        .json(
+          sendResponse(400, "Unexpected error", "User doesnt exists", null)
+        );
     }
   } catch (err) {
-    res.status(400).send(err);
-  }
-});
-
-// INSERT USER
-users.post("/insert", async (req, res) => {
-  const user = await User.findOne({
-    where: {
-      username: req.body.username,
-    },
-  });
-
-  if (user) return res.status(400).send("User exist");
-
-  // Hash password
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
-  const userData = {
-    name: req.body.name,
-    role_id: req.body.role_id,
-    username: req.body.username,
-    password: hashedPassword,
-  };
-
-  try {
-    const savedUser = await User.create(userData);
-    res.status(200).send(savedUser);
-  } catch (err) {
-    res.status(400).send("a");
+    res
+      .status(400)
+      .json(sendResponse(400, "Unexpected error", "Unexpected error", null));
   }
 });
 

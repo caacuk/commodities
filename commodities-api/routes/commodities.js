@@ -12,6 +12,9 @@ const { surveyorValidation } = require("./validations");
 // Middleware
 const verifyToken = require("./verifyToken");
 
+// Helper
+const sendResponse = require("./sendResponse");
+
 commodities.use(cors());
 
 // GET ALL
@@ -20,37 +23,52 @@ commodities.get("/", verifyToken, async (req, res) => {
     const commodity = await Commodity.findAll({
       order: [["id", "DESC"]],
     });
-    res.status(200).send(commodity);
+    res
+      .status(200)
+      .json(sendResponse(200, "View all commodities success", null, commodity));
   } catch (err) {
-    res.send("error: " + err);
+    res
+      .status(400)
+      .json(sendResponse(400, "Unexpected error", "Unexpected error", null));
   }
 });
 
 // GET BY ID
-commodities.get("/", async (req, res) => {
-  const auth = 1;
-
+commodities.get("/:id", async (req, res) => {
   try {
     const commodity = await Commodity.findOne({
       where: {
-        id: req.body.id,
+        id: req.params.id,
       },
     });
 
     if (commodity) {
-      res.status(200).send(commodity);
+      res
+        .status(200)
+        .json(
+          sendResponse(200, "View commodities by id success", null, commodity)
+        );
     } else {
-      res.status(400).send("commodity doesnt exists");
+      res
+        .status(400)
+        .json(
+          sendResponse(
+            400,
+            "View commodities by id failed",
+            "Commodity doesnt exists",
+            null
+          )
+        );
     }
   } catch (err) {
-    res.status(400).send(err);
+    res
+      .status(400)
+      .json(sendResponse(400, "Unexpected error", "Unexpected error", null));
   }
 });
 
 // GET BY STATUS
 commodities.get("/status/:status", async (req, res) => {
-  const auth = 1;
-
   try {
     const commodity = await Commodity.findAll({
       where: {
@@ -60,19 +78,37 @@ commodities.get("/status/:status", async (req, res) => {
     });
 
     if (commodity) {
-      res.status(200).send(commodity);
+      res
+        .status(200)
+        .json(
+          sendResponse(
+            200,
+            "View commodities by status success",
+            null,
+            commodity
+          )
+        );
     } else {
-      res.status(400).send("commodity doesnt exists");
+      res
+        .status(400)
+        .json(
+          sendResponse(
+            400,
+            "View commodities by status failed",
+            "Commodities doesnt exists",
+            null
+          )
+        );
     }
   } catch (err) {
-    res.status(400).send(err);
+    res
+      .status(400)
+      .json(sendResponse(400, "Unexpected error", "Unexpected error", null));
   }
 });
 
 // DELETE BY ID
-commodities.post("/delete/:id", verifyToken, async (req, res) => {
-  const auth = 1;
-
+commodities.delete("/:id", verifyToken, async (req, res) => {
   try {
     const commodity = await Commodity.destroy({
       where: {
@@ -81,20 +117,43 @@ commodities.post("/delete/:id", verifyToken, async (req, res) => {
     });
 
     if (commodity) {
-      res.status(200).send("commodity deleted");
+      res
+        .status(200)
+        .json(sendResponse(200, "Delete commodities success", null, null));
     } else {
-      res.status(400).send("commodity doesnt exists");
+      res
+        .status(400)
+        .json(
+          sendResponse(
+            400,
+            "Delete commodities failed",
+            "Commodities doesnt exists",
+            null
+          )
+        );
     }
   } catch (err) {
-    res.status(400).send(err);
+    res
+      .status(400)
+      .json(sendResponse(400, "Unexpected error", "Unexpected error", null));
   }
 });
 
 // INSERT commodity
-commodities.post("/insert", verifyToken, async (req, res) => {
+commodities.post("/", verifyToken, async (req, res) => {
   // Schema validation
   const { error } = surveyorValidation(req.body);
-  if (error) return res.status(400).send({ error: error.details[0].message });
+  if (error)
+    return res
+      .status(400)
+      .json(
+        sendResponse(
+          400,
+          "Insert commodity failed",
+          error.details[0].message,
+          null
+        )
+      );
 
   const commodity = await Commodity.findOne({
     where: {
@@ -102,7 +161,17 @@ commodities.post("/insert", verifyToken, async (req, res) => {
     },
   });
 
-  if (commodity) return res.status(400).send("commodity exist");
+  if (commodity)
+    return res
+      .status(400)
+      .json(
+        sendResponse(
+          400,
+          "Insert commodity failed",
+          "Commodity already exists",
+          null
+        )
+      );
 
   const commodityData = {
     name: req.body.name,
@@ -113,21 +182,37 @@ commodities.post("/insert", verifyToken, async (req, res) => {
 
   try {
     const savedcommodity = await Commodity.create(commodityData);
-    res.status(200).send(savedcommodity);
+    res
+      .status(200)
+      .json(
+        sendResponse(200, "Insert commodities success", null, savedcommodity)
+      );
   } catch (err) {
-    res.status(400).send(err);
+    res
+      .status(400)
+      .json(sendResponse(400, "Unexpected error", "Unexpected error", null));
   }
 });
 
 // UPDATE commodity
-commodities.post("/update", verifyToken, async (req, res) => {
+commodities.put("/:id", verifyToken, async (req, res) => {
   const commodity = await Commodity.findOne({
     where: {
-      id: req.body.id,
+      id: req.params.id,
     },
   });
 
-  if (!commodity) return res.status(400).send("commodity doesnt exist");
+  if (!commodity)
+    return res
+      .status(400)
+      .json(
+        sendResponse(
+          400,
+          "Update commodities failed",
+          "commodities doesnt exists",
+          null
+        )
+      );
 
   const commodityData = {
     name: req.body.name,
@@ -139,12 +224,18 @@ commodities.post("/update", verifyToken, async (req, res) => {
   try {
     const savedcommodity = await Commodity.update(commodityData, {
       where: {
-        id: req.body.id,
+        id: req.params.id,
       },
     });
-    res.status(200).send(savedcommodity);
+    res
+      .status(200)
+      .json(
+        sendResponse(200, "Update commodity success", null, savedcommodity)
+      );
   } catch (err) {
-    res.status(400).send(err);
+    res
+      .status(400)
+      .json(sendResponse(400, "Unexpected error", "Unexpected error", null));
   }
 });
 
