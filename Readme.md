@@ -32,11 +32,6 @@ password: surveyor
 
 ![surveyor](https://github.com/caacuk/commodities/blob/master/screenshots/surveyor.PNG?raw=true)
 
-Commodity Name: Min 3 character
-
-Price: Min 1000,
-
-Date: date,
 
 
 # Run
