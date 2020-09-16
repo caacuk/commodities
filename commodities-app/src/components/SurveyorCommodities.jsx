@@ -21,6 +21,7 @@ class SurveyorCommodities extends Component {
     loading: false,
     message: true,
     messageType: false,
+    messageHidden: true,
     errorMessage: "",
   };
 

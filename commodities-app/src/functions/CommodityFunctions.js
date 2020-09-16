@@ -2,7 +2,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://caacuk-survey-api.herokuapp.com/";
 
-const config = {
+export let axiosConfig = {
   headers: {
     Authorization: localStorage.usertoken,
   },
@@ -21,7 +21,7 @@ export const getCommoditiesByStatus = () => {
 
 export const getCommodities = () => {
   return axios
-    .get("commodities/", config)
+    .get("commodities/", axiosConfig)
     .then((response) => {
       return response.data;
     })
@@ -39,7 +39,7 @@ export const postCommodity = (commodity) => {
   };
 
   return axios
-    .post("commodities/", body, config)
+    .post("commodities/", body, axiosConfig)
     .then((response) => {
       return response.data;
     })
@@ -57,7 +57,7 @@ export const putCommodity = (commodity) => {
   };
 
   return axios
-    .put("commodities/" + commodity.id, body, config)
+    .put("commodities/" + commodity.id, body, axiosConfig)
     .then((response) => {
       return response.data;
     })
@@ -68,7 +68,7 @@ export const putCommodity = (commodity) => {
 
 export const deleteCommodity = (commodity) => {
   return axios
-    .delete("commodities/" + commodity.id, config)
+    .delete("commodities/" + commodity.id, axiosConfig)
     .then((response) => {
       return response.data;
     })

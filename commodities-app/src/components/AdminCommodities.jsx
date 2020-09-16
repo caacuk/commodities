@@ -24,11 +24,14 @@ class AdminCommodities extends Component {
   };
 
   // Call GET request commodities
-  getCommodityData() {
-    getCommodities().then((res) => {
+  async getCommodityData() {
+    try {
+      const res = await getCommodities();
       this.setState({ commodities: res.data });
       this.setState({ loading: false });
-    });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   componentDidMount() {
@@ -38,6 +41,12 @@ class AdminCommodities extends Component {
 
     localStorage.setItem("activeItem", "admin");
     this.getCommodityData();
+  }
+
+  componentDidUpdate() {
+    if (this.state.commodities) {
+      this.getCommodityData();
+    }
   }
 
   // Button status clicked
