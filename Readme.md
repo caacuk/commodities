@@ -1,6 +1,8 @@
 # Commodities
 
-Client deployed https://caacuk.github.io/commodities-app-production/#/home
+#### Client https://caacuk.github.io/commodities-app-production/#/home
+
+#### API https://caacuk-survey-api.herokuapp.com/
 
 #### Admin
 
@@ -38,7 +40,7 @@ password: surveyor
 
 ### API
 
-#### API deployed at https://caacuk-survey-api.herokuapp.com/
+#### API https://caacuk-survey-api.herokuapp.com/
 
 #### or localhost:5000
 
@@ -50,7 +52,7 @@ password: surveyor
 
 ### Client
 
-#### Client deployed https://caacuk.github.io/commodities-app-production/#/home
+#### Client https://caacuk.github.io/commodities-app-production/#/home
 
 #### or localhost:3000
 
